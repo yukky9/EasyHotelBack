@@ -426,6 +426,7 @@ def get_booking(booking_id: int):
 @app.post("/api/bookings", response_model=BookingOut)
 def create_booking(booking: BookingIn):
     conn = sqlite3.connect(DB_NAME)
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute("SELECT room_type_id FROM rooms WHERE id=?", (booking.room_id,))
     room = cursor.fetchone()
